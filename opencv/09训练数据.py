@@ -1,4 +1,6 @@
 import os
+import time
+
 import cv2
 import numpy as np
 from PIL import Image
@@ -27,7 +29,8 @@ E:\face_recognize\train_data
 :param base_path: 数据集主目录路径
 :return: faces: 人脸图像列表, ids: 对应的标签列表
 """
-
+# 记录训练开始时间
+start_time = time.time()
 
 def get_images_and_labels(base_path):
     faces = []
@@ -64,15 +67,23 @@ def get_images_and_labels(base_path):
 if __name__ == "__main__":
     # 数据集路径
     # base_path = r"E:\face_recognize\train_data"
-    base_path = r"E:\face_photos"
+    base_path = r"E:\face_recognize\200张数据\train_data"
     # 获取图像和标签
     faces, ids = get_images_and_labels(base_path)
 
     # 创建人脸识别模型
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
+
+
     # 人脸识别训练,id:姓名对应一个faces:人脸数据
     recognizer.train(faces, np.array(ids))
+
+    # 记录训练结束时间
+    end_time = time.time()
+
+    training_time = end_time - start_time
+    print(f"训练完成，耗时：{training_time:.2f} 秒")
 
     # 保存模型
     model_path = "trainer/trainer.yml"
