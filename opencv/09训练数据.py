@@ -10,15 +10,15 @@ from PIL import Image
 E:\face_recognize\train_data
 │
 ├── 1
-│   ├── 1.KA.tiff
-│   ├── 2.KA.tiff
-│   ├── 3.KA.tiff
+│   ├── 1.李书印.tiff
+│   ├── 2.李书印.tiff
+│   ├── 3.李书印.tiff
 │   └── ...
 │
 ├── 2
-│   ├── 1.KB.tiff
-│   ├── 2.KB.tiff
-│   ├── 3.KB.tiff
+│   ├── 1.陈某某.tiff
+│   ├── 2.陈某某.tiff
+│   ├── 3.陈某某.tiff
 │   └── ...
 │
 └── 3...
