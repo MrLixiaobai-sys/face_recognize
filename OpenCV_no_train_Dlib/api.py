@@ -69,7 +69,7 @@ def process(self, stream):
                         logging.debug("Minimum e-distance with %s: %f",
                                       self.face_name_known_list[similar_person_num], similarity)
 
-                        if similarity < 0.4:  # 假设相似度阈值是 0.4
+                        if similarity < 0.3:  # 假设相似度阈值是 0.4
                             self.current_frame_face_name_list[k] = self.face_name_known_list[similar_person_num]
                             self.current_frame_face_similarity_list.append(similarity)  # 保存相似度
                             logging.debug("Face recognition result: %s",
@@ -134,21 +134,35 @@ def draw_name(self, img_rd):
 
         # 绘制名字
         name_position = self.current_frame_face_name_position_list[i]
-
         # 往上调整，比如上移 10 像素
         adjusted_position = (name_position[0], name_position[1] - 300)
-        draw.text(
-            xy=adjusted_position,
-            text=name,
-            font=self.font_chinese,
-            fill=(0, 255, 0)
-        )
+        if name == "Unknown":
+            draw.text(
+                xy=adjusted_position,
+                text=name,
+                font=self.font_chinese,
+                fill=(255, 0, 0)
+            )
+        else:
+            draw.text(
+                xy=adjusted_position,
+                text=name,
+                font=self.font_chinese,
+                fill=(0, 255, 0)
+            )
+
 
         # 绘制相似度
-        position = (
-            self.current_frame_face_name_position_list[i][0],
-            self.current_frame_face_name_position_list[i][1] - 330)
-        draw.text(xy=position, text=similarity_text, font=self.font_chinese, fill=(0, 255, 0))
+        if name != "Unknown":
+            position = (
+                self.current_frame_face_name_position_list[i][0],
+                self.current_frame_face_name_position_list[i][1] - 330)
+            draw.text(
+                xy=position,
+                text=similarity_text,
+                font=self.font_chinese,
+                fill=(0, 255, 0)
+            )
 
         img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 

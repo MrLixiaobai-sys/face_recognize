@@ -80,11 +80,6 @@ class Face_Recognizer:
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
 
-
-
-
-
-
     # OpenCV 调用摄像头并进行 process
     def run(self):
         cap = cv2.VideoCapture(0)  # Get video stream from camera
