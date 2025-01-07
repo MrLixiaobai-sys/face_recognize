@@ -19,7 +19,7 @@ def process(self, stream):
             self.frame_cnt += 1
             logging.debug("Frame %d starts", self.frame_cnt)
             flag, img_rd = stream.read()
-            faces = detector(img_rd, 0)
+            faces = detector(img_rd, 1)
             kk = cv2.waitKey(1)
             # 按下 q 键退出 / Press 'q' to quit
             if kk == ord('q'):
@@ -104,17 +104,6 @@ def process(self, stream):
             logging.debug("Frame ends\n\n")
 
 
-# 更新 FPS / Update FPS of Video stream
-def update_fps(self):
-    now = time.time()
-    # 每秒刷新 fps / Refresh fps per second
-    if str(self.start_time).split(".")[0] != str(now).split(".")[0]:
-        self.fps_show = self.fps
-    self.start_time = now
-    self.frame_time = now - self.frame_start_time
-    self.fps = 1.0 / self.frame_time
-    self.frame_start_time = now
-
 
 # 绘制名字和相似度
 def draw_name(self, img_rd):
@@ -152,17 +141,17 @@ def draw_name(self, img_rd):
             )
 
 
-        # 绘制相似度
-        if name != "Unknown":
-            position = (
-                self.current_frame_face_name_position_list[i][0],
-                self.current_frame_face_name_position_list[i][1] - 330)
-            draw.text(
-                xy=position,
-                text=similarity_text,
-                font=self.font_chinese,
-                fill=(0, 255, 0)
-            )
+        # # 绘制相似度
+        # if name != "Unknown":
+        #     position = (
+        #         self.current_frame_face_name_position_list[i][0],
+        #         self.current_frame_face_name_position_list[i][1] - 330)
+        #     draw.text(
+        #         xy=position,
+        #         text=similarity_text,
+        #         font=self.font_chinese,
+        #         fill=(0, 255, 0)
+        #     )
 
         img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 

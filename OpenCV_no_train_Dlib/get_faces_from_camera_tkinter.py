@@ -189,7 +189,7 @@ class Face_Register:
         self.input_name.grid(row=8, column=1, sticky=tk.W, padx=0, pady=2)
 
         tk.Button(self.frame_right_info,
-                  text='录入',
+                  text='新建文件夹',
                   command=self.GUI_get_input_name).grid(row=8, column=2, padx=5)
         
         tk.Button(self.frame_right_info,
@@ -206,7 +206,7 @@ class Face_Register:
                  text="Step 2: 保存当前人脸图片").grid(row=9, column=0, columnspan=2, sticky=tk.W, padx=5, pady=20)
 
         tk.Button(self.frame_right_info,
-                  text='保存',
+                  text='录入',
                   command=self.save_current_face).grid(row=10, column=0, columnspan=3, sticky=tk.W)
 
         # Show log in GUI

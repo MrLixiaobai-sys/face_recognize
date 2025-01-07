@@ -85,7 +85,6 @@ class Face_Recognizer:
         cap = cv2.VideoCapture(0)  # Get video stream from camera
         cap.set(3, 480)  # 640x480
         process(self, cap)
-
         cap.release()
         cv2.destroyAllWindows()
 
