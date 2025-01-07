@@ -15,6 +15,7 @@ import os
 import shutil
 import time
 import logging
+import subprocess
 
 # Dlib 正向人脸检测器 / Use frontal face detector of Dlib
 detector = dlib.get_frontal_face_detector()
@@ -66,7 +67,7 @@ class Face_Register:
                 person_num_list.append(int(person.split('_')[-1]))
             self.existing_faces_cnt = max(person_num_list)
 
-        # 如果第一次存储或者没有之前录入的人脸, 按照 person_1 开始录入 / Start from person_1
+        # 如果第一次存储或者没有之前录入的人脸, 按照 lishu 开始录入 / Start from lishu
         else:
             self.existing_faces_cnt = 0
 
@@ -98,7 +99,7 @@ class Face_Register:
         self.pre_work_mkdir()
 
         # 2. 删除 "/data/data_faces_from_camera" 中已有人脸图像文件
-        # / Uncomment if want to delete the saved faces and start from person_1
+        # / Uncomment if want to delete the saved faces and start from lishu
         # if os.path.isdir(self.path_photos_from_camera):
         #     self.pre_work_del_old_face_folders()
 
@@ -170,7 +171,17 @@ class Face_Register:
             self.draw_note(img_rd)
 
             # 10. 按下 'q' 键退出 / Press 'q' to exit
+            # 退出程序时，自动运行 features_extraction_to_csv.py
             if kk == ord('q'):
+                logging.info("程序退出，正在运行 features_extraction_to_csv.py...")
+                stream.release()
+                cv2.destroyAllWindows()
+                try:
+                    # 调用 features_extraction_to_csv.py
+                    subprocess.run(['python', 'features_extraction_to_csv.py'], check=True)
+                    logging.info("features_extraction_to_csv.py 运行完成")
+                except subprocess.CalledProcessError as e:
+                    logging.error("运行 features_extraction_to_csv.py 时出错: %s", e)
                 break
 
             # 11. Update FPS
