@@ -1,6 +1,5 @@
-import os
-
 import openCV_no_train
+import os
 import cv2
 import numpy as np
 
